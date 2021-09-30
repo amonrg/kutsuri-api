@@ -16,11 +16,13 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "`order`")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank
     @JsonIgnoreProperties("orders")
@@ -33,7 +35,8 @@ public class Order {
     @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
-    @Column(name = "date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @NotBlank
+    @CreationTimestamp
     private Timestamp date;
     @Column(name = "due_payment")
     @NotBlank
