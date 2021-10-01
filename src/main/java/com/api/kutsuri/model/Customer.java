@@ -2,6 +2,7 @@ package com.api.kutsuri.model;
 
 import java.util.List;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.api.kutsuri.crypto.AttributeEncryptor;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -20,13 +22,19 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank
+    @Convert(converter = AttributeEncryptor.class)
     private String name;
     @NotBlank
+    @Convert(converter = AttributeEncryptor.class)
     private String last_name;
+    @Convert(converter = AttributeEncryptor.class)
     private String alias;
     @NotBlank
+    @Convert(converter = AttributeEncryptor.class)
     private String address;
+    @Convert(converter = AttributeEncryptor.class)
     private String phone_number;
+    @Convert(converter = AttributeEncryptor.class)
     private String email;
 
     @JsonIgnoreProperties("customer")
