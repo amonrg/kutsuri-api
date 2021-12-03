@@ -3,6 +3,7 @@ package com.api.kutsuri.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.api.kutsuri.exception.ItemNotFoundException;
 import com.api.kutsuri.model.Customer;
 import com.api.kutsuri.repository.CustomerRepository;
 import com.api.kutsuri.service.CustomerService;
@@ -37,8 +38,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomerById(int id) {
-        Customer customer = customerRepository.findById(id).orElseThrow();
-        customerRepository.delete(customer);
+        customerRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id, "customer"));
+        customerRepository.deleteById(id);
     }
 
     @Override
